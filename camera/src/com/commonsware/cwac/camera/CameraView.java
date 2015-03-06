@@ -701,7 +701,10 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
 
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
-      camera.setParameters(previewParams);
+      //Commenting this line is a possible fix for:
+      //https://github.com/commonsguy/cwac-camera/issues/70
+        
+      //camera.setParameters(previewParams);
 
       if (data != null) {
         new ImageCleanupTask(getContext(), data, cameraId, xact).start();
