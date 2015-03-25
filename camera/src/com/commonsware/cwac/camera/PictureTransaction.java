@@ -26,6 +26,8 @@ public class PictureTransaction implements Camera.ShutterCallback {
   int displayOrientation=0;
   String flashMode=null;
   CameraView cameraView=null;
+  boolean lockCameraToPreviewOrientation=false;
+
 
   public PictureTransaction(CameraHost host) {
     this.host=host;
@@ -78,6 +80,12 @@ public class PictureTransaction implements Camera.ShutterCallback {
 
     return(this);
   }
+
+  public PictureTransaction lockCameraToPreviewOrientation(boolean lockCameraToPreviewOrientation) {
+    this.lockCameraToPreviewOrientation = lockCameraToPreviewOrientation;
+    return(this);
+  }
+
 
   PictureTransaction displayOrientation(int displayOrientation) {
     this.displayOrientation=displayOrientation;

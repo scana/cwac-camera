@@ -50,7 +50,7 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
   private Camera.Parameters previewParams=null;
   private boolean isDetectingFaces=false;
   private boolean isAutoFocusing=false;
-  private int lastPictureOrientation=-1;
+  //private int lastPictureOrientation=-1;
 
   public CameraView(Context context) {
     super(context);
@@ -134,7 +134,7 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
 
     removeView(previewStrategy.getWidget());
     onOrientationChange.disable();
-    lastPictureOrientation=-1;
+    //lastPictureOrientation=-1;
   }
 
   // based on CameraPreview.java from ApiDemos
@@ -301,13 +301,18 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
           pictureParams.setFlashMode(xact.flashMode);
         }
 
-        if (!onOrientationChange.isEnabled()) {
+        xact.lockCameraToPreviewOrientation(true);
+        if (xact.lockCameraToPreviewOrientation || !onOrientationChange.isEnabled()) {
           setCameraPictureOrientation(pictureParams);
         }
+
 
         camera.setParameters(xact.host.adjustPictureParameters(xact,
                                                                pictureParams));
         xact.cameraView=this;
+
+
+
 
         postDelayed(new Runnable() {
           @Override
@@ -610,10 +615,11 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
       outputOrientation=displayOrientation;
     }
 
-    if (lastPictureOrientation != outputOrientation) {
+    /*if (lastPictureOrientation != outputOrientation) {
       params.setRotation(outputOrientation);
       lastPictureOrientation=outputOrientation;
-    }
+    }*/
+    params.setRotation(outputOrientation);
   }
 
   // based on:
@@ -662,7 +668,7 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
 
           try {
             camera.setParameters(params);
-            lastPictureOrientation=outputOrientation;
+            //lastPictureOrientation=outputOrientation;
           }
           catch (Exception e) {
             Log.e(getClass().getSimpleName(),
