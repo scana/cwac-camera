@@ -14,6 +14,7 @@
 
 package com.commonsware.cwac.camera;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.os.Build;
@@ -108,6 +109,7 @@ public class CameraFragment extends Fragment {
    *         this fragment, where the default is an instance
    *         of the stock SimpleCameraHost.
    */
+  @SuppressLint("Override")
   public CameraHost getHost() {
     if (host == null) {
       host=new SimpleCameraHost(getActivity());
