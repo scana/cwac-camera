@@ -32,8 +32,10 @@ import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import java.io.IOException;
+
 import com.commonsware.cwac.camera.CameraHost.FailureReason;
+
+import java.io.IOException;
 
 public class CameraView extends ViewGroup implements AutoFocusCallback {
   static final String TAG="CWAC-Camera";
@@ -661,12 +663,9 @@ public class CameraView extends ViewGroup implements AutoFocusCallback {
 
         if (newOutputOrientation != outputOrientation) {
           outputOrientation=newOutputOrientation;
-
-          Camera.Parameters params=camera.getParameters();
-
-          params.setRotation(outputOrientation);
-
           try {
+            Camera.Parameters params=camera.getParameters();
+            params.setRotation(outputOrientation);
             camera.setParameters(params);
             //lastPictureOrientation=outputOrientation;
           }
